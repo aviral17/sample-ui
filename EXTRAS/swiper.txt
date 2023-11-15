@@ -1,0 +1,243 @@
+Hello, this is Bing. I'm sorry to hear that you are having trouble with react swiper 11th version. I searched the web for some possible solutions to your problem.
+
+One suggestion is to use the `breakpoints` prop to specify different settings for different screen sizes and zoom levels. This will allow you to adjust the number of slides per view and the space between them according to the device width and the device pixel ratio¹. Your code would look like this:
+
+```jsx
+import { Swiper, SwiperSlide } from "swiper/react";
+
+return (
+  <Swiper
+    style={{ width: "100%" }}
+    // install Swiper modules
+    modules={[Navigation, Pagination, Scrollbar, A11y]}
+    centeredSlides={true}
+    spaceBetween={25}
+    initialSlide={4}
+    slidesPerView={5}
+    // navigation
+    // centeredSlidesBounds={true}
+    // pagination={{ clickable: true }}
+    scrollbar={{ draggable: true }}
+    onSwiper={(swiper) => console.log(swiper)}
+    onSlideChange={() => console.log("slide change")}
+    breakpoints={{
+      // when window width is >= 320px and device pixel ratio is <= 0.25
+      "320-0.25": {
+        slidesPerView: 1,
+        spaceBetween: 10
+      },
+      // when window width is >= 320px and device pixel ratio is <= 0.5
+      "320-0.5": {
+        slidesPerView: 2,
+        spaceBetween: 15
+      },
+      // when window width is >= 320px and device pixel ratio is <= 0.75
+      "320-0.75": {
+        slidesPerView: 3,
+        spaceBetween: 20
+      },
+      // when window width is >= 320px and device pixel ratio is <= 1
+      "320-1": {
+        slidesPerView: 4,
+        spaceBetween: 25
+      },
+      // when window width is >= 480px and device pixel ratio is <= 0.25
+      "480-0.25": {
+        slidesPerView: 2,
+        spaceBetween: 15
+      },
+      // when window width is >= 480px and device pixel ratio is <= 0.5
+      "480-0.5": {
+        slidesPerView: 3,
+        spaceBetween: 20
+      },
+      // when window width is >= 480px and device pixel ratio is <= 0.75
+      "480-0.75": {
+        slidesPerView: 4,
+        spaceBetween: 25
+      },
+      // when window width is >= 480px and device pixel ratio is <= 1
+      "480-1": {
+        slidesPerView: 5,
+        spaceBetween: 30
+      },
+      // when window width is >= 640px and device pixel ratio is <= 0.25
+      "640-0.25": {
+        slidesPerView: 3,
+        spaceBetween: 20
+      },
+      // when window width is >= 640px and device pixel ratio is <= 0.5
+      "640-0.5": {
+        slidesPerView: 4,
+        spaceBetween: 25
+      },
+      // when window width is >= 640px and device pixel ratio is <= 0.75
+      "640-0.75": {
+        slidesPerView: 5,
+        spaceBetween: 30
+      },
+      // when window width is >= 640px and device pixel ratio is <= 1
+      "640-1": {
+        slidesPerView: 6,
+        spaceBetween: 35
+      }
+    }}
+  >
+    {cardsData.map((card, index) => {
+      const iconPath =
+        liveTextIconMap[card.liveText as keyof typeof liveTextIconMap];
+
+      const isThirdCard = index === 3;
+      const isFourthCard = index === 4;
+      const isFifthCard = index === 5 || index === 6;
+
+      if (index === 4) {
+        return (
+          <SwiperSlide key={index}>
+            <FlipCard
+              key={index}
+              card={card}
+              icon={iconPath}
+              isOpaque={index < 3}
+              isFourth={isFourthCard}
+              isFifth={isFifthCard}
+              isThird={isThirdCard}
+            />
+          </SwiperSlide>
+        );
+      } else {
+        return (
+          <SwiperSlide key={index}>
+            <Card
+              key={index}
+              {...card}
+              icon={iconPath}
+              isOpaque={index < 3}
+              isFourth={isFourthCard}
+              isFifth={isFifthCard}
+              isThird={isThirdCard}
+            />
+          </SwiperSlide>
+        );
+      }
+    })}
+  </Swiper>
+);
+```
+
+Another suggestion is to use the `resizeObserver` prop to enable the swiper to recalculate the size of the slides when the window is resized or zoomed. This will allow you to use the swiper without any extra code or hooks. You can read more about this prop in the [swiper documentation](^2^). Your code would look like this:
+
+```jsx
+import { Swiper, SwiperSlide } from "swiper/react";
+
+return (
+  <Swiper
+    style={{ width: "100%" }}
+    // install Swiper modules
+    modules={[Navigation, Pagination, Scrollbar, A11y]}
+    centeredSlides={true}
+    spaceBetween={25}
+    initialSlide={4}
+    slidesPerView={5}
+    // navigation
+    // centeredSlidesBounds={true}
+    // pagination={{ clickable: true }}
+    scrollbar={{ draggable: true }}
+    onSwiper={(swiper) => console.log(swiper)}
+    onSlideChange={() => console.log("slide change")}
+    resizeObserver={true} // enable resize observer functionality
+  >
+    {cardsData.map((card, index) => {
+      const iconPath =
+        liveTextIconMap[card.liveText as keyof typeof liveTextIconMap];
+
+      const isThirdCard = index === 3;
+      const isFourthCard = index === 4;
+      const isFifthCard = index === 5 || index === 6;
+
+      if (index === 4) {
+        return (
+          <SwiperSlide key={index}>
+            <FlipCard
+              key={index}
+              card={card}
+              icon={iconPath}
+              isOpaque={index < 3}
+              isFourth={isFourthCard}
+              isFifth={isFifthCard}
+              isThird={isThirdCard}
+            />
+          </SwiperSlide>
+        );
+      } else {
+        return (
+          <SwiperSlide key={index}>
+            <Card
+              key={index}
+              {...card}
+              icon={iconPath}
+              isOpaque={index < 3}
+              isFourth={isFourthCard}
+              isFifth={isFifthCard}
+              isThird={isThirdCard}
+            />
+          </SwiperSlide>
+        );
+      }
+    })}
+  </Swiper>
+);
+```
+
+I hope these suggestions help you fix your issue. If not, you can check out more resources on the [swiper website](^2^) or the [swiper GitHub repository](^3^). Good luck! 😊
+
+Source: Conversation with Bing, 13/11/2023
+(1) Make Swiper Slider Responsive in React.js - Stack Overflow. https://stackoverflow.com/questions/72152012/make-swiper-slider-responsive-in-react-js.
+(2) Swiper React Components. https://swiperjs.com/react.
+(3) Swiper React Components. https://swiperjs.com/react.
+(4) Is there a way to conditionally display the slidesPerView in React .... https://stackoverflow.com/questions/74957126/is-there-a-way-to-conditionally-display-the-slidesperview-in-react-swiper-based.
+(5) swiper.js - swiperjs responsive browser width problems - Stack Overflow. https://stackoverflow.com/questions/60595112/swiperjs-responsive-browser-width-problems.
+(6) Responsive breakpoints with Swiper React? - Stack Overflow. https://stackoverflow.com/questions/75341326/responsive-breakpoints-with-swiper-react.
+(7) undefined. https://static.wixstatic.com/media/2c0034_5916d66c114c4a3fb055fd0fff15f402~mv2.png.
+(8) undefined. https://static.wixstatic.com/media/2c0034_ecb14379435e405996be56ad460df8d0~mv2.png.
+(9) undefined. https://static.wixstatic.com/media/2c0034_efd3336ca11743f796271887c60c2dd1~mv2.png.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
