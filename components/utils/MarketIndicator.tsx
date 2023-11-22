@@ -7,7 +7,31 @@ interface SvgProps {
 }
 // { marketStatus, upText }: SvgProps
 
-export function UpIndicator() {
+export function UpIndicator({ marketStatus, upText }: SvgProps) {
+  // @ts-ignore
+  const text_up_style = {
+    fill: "#BDC2C4",
+    fontFamily: "'Roboto', sans-serif",
+    fontWeight: "bold",
+    fontSize: "20px",
+  };
+
+  // @ts-ignore
+  const prices = {
+    fill: "#7b6ba7",
+    fontFamily: "'Roboto', sans-serif",
+    fontWeight: "800",
+    fontSize: "12px",
+  };
+
+  // @ts-ignore
+  const payout = {
+    fill: "#7b6ba7",
+    fontFamily: "'Roboto', sans-serif",
+    fontSize: "13px",
+    fontWeight: "200",
+  };
+
   return (
     // <svg fill={marketStatus === "up" ? "green" : "neutralColor"}>
     //   {/* SVG for market going up */}
@@ -40,27 +64,27 @@ export function UpIndicator() {
         <text
           x="50%"
           y="38%"
-          dominant-baseline="middle"
-          text-anchor="middle"
-          className="text_up_card_style"
+          dominantBaseline="middle"
+          textAnchor="middle"
+          style={text_up_style}
         >
           UP
         </text>
         <text
           x="40%"
           y="75%"
-          dominant-baseline="middle"
-          text-anchor="middle"
-          className="prices_up_card"
+          dominantBaseline="middle"
+          textAnchor="middle"
+          style={prices}
         >
           2.15x
         </text>{" "}
         <text
           x="58%"
           y="75%"
-          dominant-baseline="middle"
-          text-anchor="middle"
-          className="payout_up_card"
+          dominantBaseline="middle"
+          textAnchor="middle"
+          style={payout}
         >
           Payout
         </text>{" "}
@@ -73,9 +97,9 @@ export function UpIndicator() {
           width="224"
           height="62.9688"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+          <feFlood floodOpacity="0" result="BackgroundImageFix"></feFlood>
           <feBlend
             mode="normal"
             in="SourceGraphic"
@@ -112,7 +136,31 @@ export function UpIndicator() {
 }
 // { marketStatus, downText }: SvgProps
 
-export function DownIndicator() {
+export function DownIndicator({ marketStatus, downText }: SvgProps) {
+  // @ts-ignore
+  const text_up_style = {
+    fill: "#white",
+    fontFamily: "'Roboto', sans-serif",
+    fontWeight: "bold",
+    fontSize: "18px",
+  };
+
+  // @ts-ignore
+  const prices = {
+    fill: "white",
+    fontFamily: "'Roboto', sans-serif",
+    fontWeight: "800",
+    fontSize: "12px",
+  };
+
+  // @ts-ignore
+  const payout = {
+    fill: "white",
+    fontFamily: "'Roboto', sans-serif",
+    fontSize: "13px",
+    fontWeight: "200",
+  };
+
   return (
     // <svg fill={marketStatus === "down" ? "purple" : "neutralColor"}>
     //   {/* SVG for market going down */}
@@ -145,9 +193,9 @@ export function DownIndicator() {
         <text
           x="40%"
           y="30%"
-          dominant-baseline="middle"
-          text-anchor="middle"
-          className="prices_down_card"
+          dominantBaseline="middle"
+          textAnchor="middle"
+          style={prices}
         >
           {" "}
           8.17x{" "}
@@ -155,18 +203,18 @@ export function DownIndicator() {
         <text
           x="58%"
           y="30%"
-          dominant-baseline="middle"
-          text-anchor="middle"
-          className="payout_down_card"
+          dominantBaseline="middle"
+          textAnchor="middle"
+          style={payout}
         >
           Payout
         </text>
         <text
           x="50%"
           y="60%"
-          dominant-baseline="middle"
-          text-anchor="middle"
-          className="text_down_card_style"
+          dominantBaseline="middle"
+          textAnchor="middle"
+          style={text_up_style}
         >
           DOWN
         </text>
@@ -179,7 +227,7 @@ export function DownIndicator() {
           width="224"
           height="62.9688"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
           <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
           <feBlend
@@ -218,15 +266,13 @@ export function DownIndicator() {
 }
 
 function MarketIndicator({ marketStatus, upText, downText }: SvgProps) {
-  return (
-    <>
-      {/* marketStatus={marketStatus} upText={upText} */}
-      <UpIndicator />
-
-      {/* marketStatus={marketStatus} downText={downText} */}
-      <DownIndicator />
-    </>
-  );
+  if (marketStatus === "1") {
+    return <UpIndicator marketStatus={marketStatus} upText={upText} />;
+  } else if (marketStatus === "-1") {
+    return <DownIndicator marketStatus={marketStatus} downText={downText} />;
+  } else {
+    return null; // or some default case
+  }
 }
 
 export default MarketIndicator;

@@ -1,12 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, {
   Navigation,
   Pagination,
-  FreeMode,
   Scrollbar,
   A11y,
   Mousewheel,
@@ -18,7 +17,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 
-import MarketIndicator from "./utils/MarketIndicator";
+export { UpIndicator, DownIndicator } from "./utils/MarketIndicator";
 
 // Install the modules
 // SwiperCore.use([Navigation, Pagination, Mousewheel]);
@@ -75,19 +74,19 @@ const FrontCard = ({
 }: CardProps) => {
   return (
     <div
-      className={`shadow-sm shadow-gray-300 w-[320px]  bg-white rounded-[30px]  border-b-[6px] border-gray-200 ${
+      className={`w-[320px]  bg-white rounded-[30px]  border-b-[6px] border-gray-200 ${
         isOpaque && "opacity-50"
       }`}
       // style={{ borderColor: borderColor }}
     >
       <div
         className={`flex justify-between items-center px-4 py-2 ${
-          isFourth && "bg-[#ffffff] border-gray-200 shadow-md shadow-gray-200"
+          isFourth && "bg-[#7645D9]"
         }  rounded-t-[30px] overflow-hidden `}
       >
         <div className="flex items-center">
           <div>
-            <Image src={icon} width={20} height={20} alt="play" className="" />
+            <Image src={icon} width={20} height={20} alt="play" />
           </div>
           <div
             className={`ml-1 font-extrabold text-sm`}
@@ -97,7 +96,7 @@ const FrontCard = ({
           </div>
         </div>
 
-        <div className={`text-black font-medium`}>{cardNumber}</div>
+        <div className={`text-white font-medium`}>{cardNumber}</div>
       </div>
       {/* bg-[#e9e6ef] h-2.5 dark:bg-[#e9e6ef] */}
 
@@ -353,7 +352,7 @@ const Card = ({
         </div>
 
         <div
-          className={`text-[#000000] ${
+          className={`text-[#7836db] ${
             isOpaque && "text-[#c1c7d5]"
           } font-medium`}
         >
@@ -370,34 +369,22 @@ const Card = ({
       <div className={`flex flex-col justify-center items-center mt-4`}>
         {!isFifth && (
           <div className={`-mb-[2px]`}>
-            {/* <Image
+            <Image
               src="card_up_white.svg"
               width={250}
               height={380}
               alt="image"
-            /> */}
-
-            {MarketIndicator({
-              marketStatus: "1",
-              upText: "up",
-              downText: "",
-            })}
+            />
           </div>
         )}
         {isFifth && (
           <div className={`-mb-[2px]`}>
-            {/* <Image
+            <Image
               src="card_up_last.svg"
               width={250}
               height={380}
               alt="image"
-            /> */}
-
-            {MarketIndicator({
-              marketStatus: "1",
-              upText: "up",
-              downText: "",
-            })}
+            />
           </div>
         )}
 
@@ -559,7 +546,7 @@ const cardsData = [
     pay2: "1.87x",
     liveText: "LIVE",
     txtColor: "",
-    borderColor: "",
+    borderColor: "#7836d3",
     innerBorderColor: "#ef449c",
     cardNumber: "#218486",
     lastPrice: "$225.8452",
@@ -571,7 +558,7 @@ const cardsData = [
     pay1: "1.35x",
     pay2: "3.84x",
     liveText: "Next",
-    txtColor: "#000",
+    txtColor: "#fff",
     borderColor: "#cfd3da",
     innerBorderColor: "#82c7ea",
     cardNumber: "#218487",
@@ -601,62 +588,59 @@ export default function Cards() {
     Later: "timer.svg",
   };
 
-  // const [zoomLevel, setZoomLevel] = useState(window.devicePixelRatio);
-  // const [slidesPerView, setSlidesPerView] = useState(3);
-
-  // const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-  // useEffect(() => {
-  //   const handleResize = () => setWindowWidth(window.innerWidth);
-  //   window.addEventListener("resize", handleResize);
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, []);
-
-  // let slidesPerView;
-  // if (windowWidth >= 640) {
-  //   slidesPerView = 5;
-  // } else if (windowWidth >= 480) {
-  //   slidesPerView = 3;
-  // } else {
-  //   slidesPerView = 1;
-  // }
-
-  // useEffect(() => {
-  //   if (zoomLevel <= 0.75) {
-  //     setSlidesPerView(1);
-  //   } else if (zoomLevel <= 1.25) {
-  //     setSlidesPerView(2);
-  //   } else {
-  //     setSlidesPerView(3);
-  //   }
-  // }, [zoomLevel]);
-
-  // useEffect(() => {
-  //   const handleResize = () => setZoomLevel(window.devicePixelRatio);
-  //   window.addEventListener("resize", handleResize);
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, []);
-
   return (
     <Swiper
-      style={{ width: "100%" }}
-      // install Swiper modules
-      modules={[Navigation, Pagination, Scrollbar, A11y]}
-      centeredSlides={true}
-      spaceBetween={25}
-      initialSlide={4}
-      slidesPerView={5}
-      // navigation
+      style={{ width: "100%", overflow: "hidden" }}
+      initialSlide={1}
+      // spaceBetween={window.innerWidth > 340 ? 30 : 10}
+      spaceBetween={30}
+      slidesPerView={5.2}
+      // slidesPerView={1.2}
+      // centeredSlides={true}
       // centeredSlidesBounds={true}
-      // pagination={{ clickable: true }}
+      scrollbar={false}
+      freeMode={true}
+      // navigation
+      pagination={{ clickable: true }}
       // scrollbar={{ draggable: true }}
-      onSwiper={(swiper) => console.log(swiper)}
-      onSlideChange={() => console.log("slide change")}
+      // mousewheel={{ forceToAxis: true }}
+      mousewheel={true}
+      breakpoints={{
+        // when window width is >= 640px
+        // 100: {
+        //   width: 100,
+        //   slidesPerView: 5,
+        // },
+
+        440: {
+          width: 540,
+          slidesPerView: 2,
+        },
+
+        640: {
+          width: 640,
+          slidesPerView: 2,
+        },
+        // when window width is >= 768px
+        768: {
+          width: 768,
+          slidesPerView: 2,
+        },
+      }}
+      // modules={[Keyboard]}
+      // keyboard={{
+      //   enabled: true,
+      // }}
     >
       <SwiperSlide></SwiperSlide>
-      {/* <SwiperSlide></SwiperSlide>
-      <SwiperSlide></SwiperSlide> */}
-
+      <SwiperSlide></SwiperSlide>
+      <SwiperSlide></SwiperSlide>
+      <SwiperSlide></SwiperSlide>
+      <SwiperSlide></SwiperSlide>
+      <SwiperSlide></SwiperSlide>
+      <SwiperSlide></SwiperSlide>
+      <SwiperSlide></SwiperSlide>
+      <SwiperSlide></SwiperSlide>
       {cardsData.map((card, index) => {
         const iconPath =
           liveTextIconMap[card.liveText as keyof typeof liveTextIconMap];
@@ -664,7 +648,6 @@ export default function Cards() {
         const isThirdCard = index === 3;
         const isFourthCard = index === 4;
         const isFifthCard = index === 5 || index === 6;
-
         if (index === 4) {
           return (
             <SwiperSlide key={index}>
@@ -695,6 +678,10 @@ export default function Cards() {
           );
         }
       })}
+
+      <SwiperSlide></SwiperSlide>
     </Swiper>
   );
 }
+
+// export default Card;
