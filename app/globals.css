@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
 
 /* :root {
   
@@ -50,8 +50,7 @@ body {
 }
 
 .login_font {
-  font-family: 'Poppins', sans-serif;
-
+  font-family: "Poppins", sans-serif;
 }
 
 /* .flip-horizontal {
@@ -143,8 +142,6 @@ body {
   }
 }
 
-
-
 /* .last-slide.swiper-slide-active {
   transform: translate3d(0, 0, 0) !important;
 } */
@@ -198,3 +195,11 @@ body {
 } */
 
 /* ============ ****UTILS**** ====================================================================== */
+
+/* ============ ****WALLET**** ====================================================================== */
+
+.wallet_font {
+  font-family: "Rubik", sans-serif;
+}
+
+/* ============ ****WALLET**** ====================================================================== */
