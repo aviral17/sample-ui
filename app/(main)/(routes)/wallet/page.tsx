@@ -1,5 +1,7 @@
 import * as React from "react";
 
+// NOTE: TODO: make url like from localhost/wallet  to localhost/[...userId]/wallet or something like
+
 const Wallet = () => (
   <div className="flex h-full wallet_font">
     <div className="w-1/3 p-4 flex flex-col  bg-[#f1f5f9] gap-20">
